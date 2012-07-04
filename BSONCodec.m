@@ -390,8 +390,12 @@ static NSDictionary *BSONTypes()
 
 	if (t == 0x10)
 	{
-		int32_t value = BSONTOHOST32(((int32_t *) *base)[0]);
+//		int32_t value = BSONTOHOST32(((int32_t *) *base)[0]);
+    
+    int32_t value;
+    memcpy(&value, *base, sizeof(int32_t));
 		*base += 4;
+
 
 		if (sizeof(int) == 4)
 			return [NSNumber numberWithInt: value];
@@ -401,7 +405,10 @@ static NSDictionary *BSONTypes()
 
 	if (t == 0x12)
 	{
-		int64_t value = BSONTOHOST64(((int64_t *) *base)[0]);
+//		int64_t value = BSONTOHOST64(((int64_t *) *base)[0]);
+    
+    int64_t value;
+    memcpy(&value, *base, sizeof(int64_t));
 		*base += 8;
 
 		return [NSNumber numberWithLongLong: value];
